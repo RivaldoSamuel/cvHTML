@@ -67,21 +67,27 @@
       color: #bbb;
     }
 
+    /* Botão Dark Mode */
     .dark-mode-toggle {
       position: fixed;
       top: 20px;
       right: 20px;
       background: #0078d4;
       color: white;
-      border: none;
-      padding: 10px 14px;
-      border-radius: 8px;
+      border: 2px solid #005fa3;
+      padding: 12px 18px;
+      border-radius: 10px;
       cursor: pointer;
-      transition: background 0.3s;
-      z-index: 1000;
+      transition: background 0.3s, transform 0.2s;
+      z-index: 9999;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
 
-    .dark-mode-toggle:hover { background: #005fa3; }
+    .dark-mode-toggle:hover {
+      background: #005fa3;
+      transform: scale(1.05);
+    }
 
     a {
       color: #0078d4;
