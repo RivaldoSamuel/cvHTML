@@ -4,97 +4,130 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Currículo | Rivaldo Ivan</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- AOS para animações -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
   <style>
+    /* Reset básico */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f9f9f9;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(120deg, #f9f9f9, #e0f7fa);
       color: #333;
-      margin: 0;
-      padding: 0;
       line-height: 1.6;
+      transition: background 0.5s;
     }
 
     .container {
       max-width: 900px;
       margin: 50px auto;
-      background: white;
+      background: #ffffff;
       padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     }
 
-    h1, h2, h3 {
-      color: #222;
+    header h1 {
+      font-size: 2.5em;
+      color: #0078d4;
     }
 
-    h1 {
-      font-size: 2.2em;
-      margin-bottom: 0;
-    }
-
-    h2 {
-      border-bottom: 2px solid #0078d4;
-      padding-bottom: 4px;
-      margin-top: 40px;
-      text-transform: uppercase;
-      font-size: 1.1em;
-      letter-spacing: 1px;
-    }
-
-    p {
-      margin: 8px 0;
+    header p {
+      margin: 5px 0;
+      font-size: 1em;
+      color: #555;
     }
 
     a {
       color: #0078d4;
       text-decoration: none;
+      transition: all 0.3s ease;
     }
 
     a:hover {
       text-decoration: underline;
+      color: #005fa3;
+    }
+
+    h2 {
+      border-bottom: 2px solid #0078d4;
+      padding-bottom: 6px;
+      margin-top: 40px;
+      text-transform: uppercase;
+      font-size: 1.2em;
+      letter-spacing: 1px;
     }
 
     .section {
-      margin-bottom: 25px;
+      margin-bottom: 30px;
     }
 
     .info {
-      color: #555;
+      color: #777;
       font-size: 0.95em;
     }
 
     ul {
       list-style-type: none;
-      padding: 0;
+      padding-left: 0;
     }
 
     ul li {
-      margin-bottom: 10px;
+      margin-bottom: 15px;
+      padding: 15px;
+      border-radius: 12px;
+      background: #f3f9ff;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    ul li:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
     }
 
     .project-link {
       display: inline-block;
-      margin-top: 5px;
+      margin-top: 8px;
       font-size: 0.9em;
+      padding: 6px 12px;
+      background: #0078d4;
+      color: #fff;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+
+    .project-link:hover {
+      background: #005fa3;
     }
 
     footer {
       text-align: center;
-      margin-top: 40px;
+      margin-top: 50px;
       font-size: 0.9em;
-      color: #777;
+      color: #555;
+    }
+
+    /* Animações de fade-in */
+    [data-aos] {
+      opacity: 0;
+      transition-property: opacity, transform;
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container" data-aos="fade-up">
     <header>
       <h1>Rivaldo Ivan</h1>
       <p><strong>Licenciado em Engenharia Informática</strong></p>
       <p class="info">📍 Bragança, Portugal | 📧 <a href="mailto:rivaldo.i.g.j.samuel@gmail.com">rivaldo.i.g.j.samuel@gmail.com</a></p>
     </header>
 
-    <section class="section">
+    <section class="section" data-aos="fade-up" data-aos-delay="100">
       <h2>Perfil Profissional</h2>
       <p>
         Engenheiro Informático recém-formado, motivado e dinâmico, com forte capacidade de proatividade e criatividade
@@ -105,14 +138,14 @@
       </p>
     </section>
 
-    <section class="section">
+    <section class="section" data-aos="fade-up" data-aos-delay="200">
       <h2>Experiência Profissional</h2>
       <p><strong>Tree Flowers Solution, S.A.</strong> – Bragança, Portugal</p>
       <p class="info">Operador de máquinas | 14/07/2025 – 14/07/2025</p>
       <p>Operar máquinas de moer e extrair a flor de castanheiro.</p>
     </section>
 
-    <section class="section">
+    <section class="section" data-aos="fade-up" data-aos-delay="300">
       <h2>Formação Académica</h2>
       <ul>
         <li>
@@ -126,7 +159,7 @@
       </ul>
     </section>
 
-    <section class="section">
+    <section class="section" data-aos="fade-up" data-aos-delay="400">
       <h2>Competências</h2>
       <ul>
         <li>Programação: Python, C, C++, Java, JavaScript, Flutter/Dart, HTML, CSS, Bootstrap, SQL, SAP ABAP</li>
@@ -136,7 +169,7 @@
       </ul>
     </section>
 
-    <section class="section">
+    <section class="section" data-aos="fade-up" data-aos-delay="500">
       <h2>Projetos</h2>
       <ul>
         <li>
@@ -152,9 +185,18 @@
       </ul>
     </section>
 
-    <footer>
+    <footer data-aos="fade-up" data-aos-delay="600">
       © 2025 Rivaldo Ivan — Desenvolvido com ❤️ em Portugal
     </footer>
   </div>
+
+  <!-- Scripts AOS -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1000,
+      once: true
+    });
+  </script>
 </body>
 </html>
