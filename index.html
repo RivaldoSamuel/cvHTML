@@ -11,8 +11,10 @@
   <!-- AOS para animações -->
   <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
+  <!-- Typed.js -->
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
   <style>
-    /* Reset básico */
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
@@ -20,7 +22,12 @@
       background: linear-gradient(120deg, #f9f9f9, #e0f7fa);
       color: #333;
       line-height: 1.6;
-      transition: background 0.5s;
+      transition: background 0.5s, color 0.5s;
+    }
+
+    body.dark {
+      background: #121212;
+      color: #ddd;
     }
 
     .container {
@@ -30,18 +37,51 @@
       padding: 40px;
       border-radius: 16px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: background 0.5s, color 0.5s;
+    }
+
+    body.dark .container {
+      background: #1e1e1e;
+      color: #ddd;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 30px;
     }
 
     header h1 {
       font-size: 2.5em;
       color: #0078d4;
+      min-height: 50px;
     }
 
     header p {
       margin: 5px 0;
       font-size: 1em;
       color: #555;
+      transition: color 0.5s;
     }
+
+    body.dark header p {
+      color: #bbb;
+    }
+
+    .dark-mode-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #0078d4;
+      color: white;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+      z-index: 1000;
+    }
+
+    .dark-mode-toggle:hover { background: #005fa3; }
 
     a {
       color: #0078d4;
@@ -49,10 +89,9 @@
       transition: all 0.3s ease;
     }
 
-    a:hover {
-      text-decoration: underline;
-      color: #005fa3;
-    }
+    body.dark a { color: #66b2ff; }
+
+    a:hover { text-decoration: underline; }
 
     h2 {
       border-bottom: 2px solid #0078d4;
@@ -63,27 +102,23 @@
       letter-spacing: 1px;
     }
 
-    .section {
-      margin-bottom: 30px;
-    }
+    .section { margin-bottom: 30px; }
 
-    .info {
-      color: #777;
-      font-size: 0.95em;
-    }
+    .info { color: #777; font-size: 0.95em; }
 
-    ul {
-      list-style-type: none;
-      padding-left: 0;
-    }
+    body.dark .info { color: #aaa; }
+
+    ul { list-style-type: none; padding-left: 0; }
 
     ul li {
       margin-bottom: 15px;
       padding: 15px;
       border-radius: 12px;
       background: #f3f9ff;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.5s;
     }
+
+    body.dark ul li { background: #2a2a2a; }
 
     ul li:hover {
       transform: translateY(-5px);
@@ -101,28 +136,42 @@
       transition: background 0.3s;
     }
 
-    .project-link:hover {
-      background: #005fa3;
+    .project-link:hover { background: #005fa3; }
+
+    /* Skill bars */
+    .skill {
+      margin-bottom: 12px;
     }
 
-    footer {
-      text-align: center;
-      margin-top: 50px;
-      font-size: 0.9em;
-      color: #555;
+    .skill-name { font-weight: 600; margin-bottom: 4px; }
+
+    .skill-bar {
+      width: 100%;
+      background: #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      height: 14px;
     }
 
-    /* Animações de fade-in */
-    [data-aos] {
-      opacity: 0;
-      transition-property: opacity, transform;
+    .skill-bar-inner {
+      height: 100%;
+      width: 0;
+      background: #0078d4;
+      border-radius: 8px;
+      transition: width 1.5s ease-in-out;
     }
+
+    footer { text-align: center; margin-top: 50px; font-size: 0.9em; color: #555; }
+
+    body.dark footer { color: #aaa; }
   </style>
 </head>
 <body>
+  <button class="dark-mode-toggle">🌙 Dark Mode</button>
+
   <div class="container" data-aos="fade-up">
     <header>
-      <h1>Rivaldo Ivan</h1>
+      <h1 id="typed-title"></h1>
       <p><strong>Licenciado em Engenharia Informática</strong></p>
       <p class="info">📍 Bragança, Portugal | 📧 <a href="mailto:rivaldo.i.g.j.samuel@gmail.com">rivaldo.i.g.j.samuel@gmail.com</a></p>
     </header>
@@ -161,12 +210,26 @@
 
     <section class="section" data-aos="fade-up" data-aos-delay="400">
       <h2>Competências</h2>
-      <ul>
-        <li>Programação: Python, C, C++, Java, JavaScript, Flutter/Dart, HTML, CSS, Bootstrap, SQL, SAP ABAP</li>
-        <li>Facilidade de aprendizagem de novos softwares</li>
-        <li>Trabalho em equipa e comunicação eficaz</li>
-        <li>Utilização da Internet como ferramenta de pesquisa e inovação</li>
-      </ul>
+      <div class="skill">
+        <div class="skill-name">Python</div>
+        <div class="skill-bar"><div class="skill-bar-inner" data-skill="90%"></div></div>
+      </div>
+      <div class="skill">
+        <div class="skill-name">C / C++</div>
+        <div class="skill-bar"><div class="skill-bar-inner" data-skill="80%"></div></div>
+      </div>
+      <div class="skill">
+        <div class="skill-name">Java / JavaScript</div>
+        <div class="skill-bar"><div class="skill-bar-inner" data-skill="85%"></div></div>
+      </div>
+      <div class="skill">
+        <div class="skill-name">Flutter / Dart</div>
+        <div class="skill-bar"><div class="skill-bar-inner" data-skill="75%"></div></div>
+      </div>
+      <div class="skill">
+        <div class="skill-name">HTML / CSS / Bootstrap</div>
+        <div class="skill-bar"><div class="skill-bar-inner" data-skill="90%"></div></div>
+      </div>
     </section>
 
     <section class="section" data-aos="fade-up" data-aos-delay="500">
@@ -174,12 +237,12 @@
       <ul>
         <li>
           <strong>Diabe Smart</strong> (20/11/2024 – 08/07/2025)<br>
-          <p>Aplicação móvel desenvolvida em Flutter/Dart para auxiliar pessoas com diabetes na gestão e acompanhamento da condição, com registo de glicemia, insulina, refeições e previsões de glicemia.</p>
+          <p>Aplicação móvel desenvolvida em Flutter/Dart para auxiliar pessoas com diabetes na gestão e acompanhamento da condição.</p>
           <a class="project-link" href="https://gitlab.estig.ipb.pt/a51469/projeto-final_do_curso/-/tree/6c53476dfb044a7d70b70c5e7c8719314211b262/" target="_blank">Ver Projeto</a>
         </li>
         <li>
           <strong>Projeto Rega</strong> (02/05/2025 – 25/06/2025)<br>
-          <p>Sistema IoT para monitorização e gestão de rega automatizada, com sensores de temperatura, humidade e dashboard em Node-RED. Inclui rega automática e controlo manual.</p>
+          <p>Sistema IoT para monitorização e gestão de rega automatizada, com sensores e dashboard em Node-RED.</p>
           <a class="project-link" href="https://gitlab.estig.ipb.pt/a51469/projeto-rega/-/tree/45728ac503955f94b014719c1a5231a6242a7725/" target="_blank">Ver Projeto</a>
         </li>
       </ul>
@@ -193,9 +256,28 @@
   <!-- Scripts AOS -->
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script>
-    AOS.init({
-      duration: 1000,
-      once: true
+    AOS.init({ duration: 1000, once: true });
+
+    // Typed.js para título
+    var typed = new Typed('#typed-title', {
+      strings: ['Rivaldo Ivan', 'Engenheiro Informático'],
+      typeSpeed: 100,
+      backSpeed: 50,
+      loop: true
+    });
+
+    // Skill bar animation
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.skill-bar-inner').forEach(bar => {
+        bar.style.width = bar.dataset.skill;
+      });
+    });
+
+    // Dark mode toggle
+    const toggle = document.querySelector('.dark-mode-toggle');
+    toggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      toggle.textContent = document.body.classList.contains('dark') ? '☀️ Light Mode' : '🌙 Dark Mode';
     });
   </script>
 </body>
