@@ -18,251 +18,315 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <style>
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{
-    font-family:'Inter',sans-serif;
-    background: linear-gradient(120deg,#f9f9f9,#e0f7fa,#f9f9f9);
-    background-size:300% 300%;
-    animation:gradientMove 10s ease infinite;
-    color:#333;
-    line-height:1.6;
-    transition:background 0.5s,color 0.5s;
-  }
-  @keyframes gradientMove{
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
-  }
-  body.dark{
-    background: linear-gradient(120deg,#121212,#1e1e1e,#121212);
-    color:#ddd;
-  }
-  .container{
-    max-width:900px;
-    margin:60px auto;
-    background:#fff;
-    padding:40px;
-    border-radius:16px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.1);
-    transition:background 0.5s,color 0.5s;
-  }
-  body.dark .container{background:#1e1e1e;color:#ddd;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Inter',sans-serif;
+  background: linear-gradient(120deg,#f9f9f9,#e0f7fa,#f9f9f9);
+  background-size:300% 300%;
+  animation:gradientMove 10s ease infinite;
+  color:#333;
+  line-height:1.6;
+  transition:background 0.5s,color 0.5s;
+}
+@keyframes gradientMove{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+body.dark{
+  background: linear-gradient(120deg,#121212,#1e1e1e,#121212);
+  color:#ddd;
+}
+.container{
+  max-width:900px;
+  margin:60px auto;
+  background:#fff;
+  padding:40px;
+  border-radius:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+  transition:background 0.5s,color 0.5s;
+}
+body.dark .container{background:#1e1e1e;color:#ddd;}
+header{
+  display:flex;align-items:center;gap:25px;margin-bottom:40px;text-align:left;
+}
+header img{
+  width:120px;height:120px;border-radius:50%;object-fit:cover;
+  box-shadow:0 4px 12px rgba(0,0,0,0.2);transition:transform 0.3s ease;
+}
+header img:hover{transform:scale(1.05);}
+.header-info h1{
+  font-size:2.2em;color:#0a3d62;margin-bottom:5px;min-height:50px;
+}
+.header-info p{color:#555;margin:4px 0;}
+body.dark .header-info p{color:#bbb;}
+.social-links{margin-top:8px;}
+.social-links a{
+  display:inline-block;margin-right:12px;font-size:1.2em;text-decoration:none;
+  color:#0a3d62;transition:transform 0.2s ease,color 0.3s;
+}
+.social-links a:hover{color:#27ae60;transform:scale(1.2);}
 
-  header{
-    display:flex;align-items:center;gap:25px;margin-bottom:40px;text-align:left;
-  }
-  header img{
-    width:120px;height:120px;border-radius:50%;object-fit:cover;
-    box-shadow:0 4px 12px rgba(0,0,0,0.2);transition:transform 0.3s ease;
-  }
-  header img:hover{transform:scale(1.05);}
-  .header-info h1{
-    font-size:2.2em;color:#0078d4;margin-bottom:5px;min-height:50px;
-  }
-  .header-info p{color:#555;margin:4px 0;}
-  body.dark .header-info p{color:#bbb;}
-  .social-links{margin-top:8px;}
-  .social-links a{
-    display:inline-block;margin-right:12px;font-size:1.2em;text-decoration:none;
-    color:#0078d4;transition:transform 0.2s ease,color 0.3s;
-  }
-  .social-links a:hover{color:#005fa3;transform:scale(1.2);}
-  
-  /* Dark Mode Button */
-  .dark-mode-toggle{
-    position:fixed;top:20px;right:20px;background:#0078d4;color:white;border:none;
-    padding:12px 16px;border-radius:50%;cursor:pointer;font-size:1.3em;
-    box-shadow:0 4px 10px rgba(0,0,0,0.2);transition:background 0.3s,transform 0.2s;z-index:9999;
-  }
-  .dark-mode-toggle:hover{background:#005fa3;transform:scale(1.1);}
+/* Dark Mode Button */
+.dark-mode-toggle{
+  position:fixed;top:20px;right:20px;background:#0a3d62;color:white;border:none;
+  padding:12px 16px;border-radius:50%;cursor:pointer;font-size:1.3em;
+  box-shadow:0 4px 10px rgba(0,0,0,0.2);transition:background 0.3s,transform 0.2s;z-index:9999;
+}
+.dark-mode-toggle:hover{background:#27ae60;transform:scale(1.1);}
 
-  /* Action Buttons */
-  .action-buttons{position:fixed;bottom:30px;right:20px;display:flex;flex-direction:column;gap:12px;z-index:9999;}
-  .action-buttons button{
-    padding:10px 14px;border:none;border-radius:50px;cursor:pointer;
-    background:#0078d4;color:white;font-size:1em;box-shadow:0 4px 12px rgba(0,0,0,0.2);
-    transition:transform 0.2s,background 0.3s;
-  }
-  .action-buttons button:hover{transform:scale(1.05);background:#005fa3;}
-  .back-to-top{display:none;font-size:1.2em;}
+/* Action Buttons */
+.action-buttons{position:fixed;bottom:30px;right:20px;display:flex;flex-direction:column;gap:12px;z-index:9999;}
+.action-buttons button{
+  padding:10px 14px;border:none;border-radius:50px;cursor:pointer;
+  background:#0a3d62;color:white;font-size:1em;box-shadow:0 4px 12px rgba(0,0,0,0.2);
+  transition:transform 0.2s,background 0.3s;
+}
+.action-buttons button:hover{transform:scale(1.05);background:#27ae60;}
+.back-to-top{display:none;font-size:1.2em;}
 
-  h2{
-    border-bottom:2px solid #0078d4;padding-bottom:6px;margin-top:40px;
-    text-transform:uppercase;font-size:1.2em;letter-spacing:1px;
-  }
-  ul{list-style:none;padding-left:0;}
-  ul li{
-    background:#f3f9ff;margin-bottom:15px;padding:15px;border-radius:12px;
-    transition:transform 0.3s ease,box-shadow 0.3s ease;
-  }
-  body.dark ul li{background:#2a2a2a;}
-  ul li:hover{transform:translateY(-4px);box-shadow:0 8px 20px rgba(0,0,0,0.1);}
-  .project-link{
-    display:inline-block;margin-top:8px;padding:6px 12px;background:#0078d4;
-    color:#fff;border-radius:8px;font-size:0.9em;transition:background 0.3s;
-  }
-  .project-link:hover{background:#005fa3;}
-  .skill{margin-bottom:12px;}
-  .skill-name{font-weight:600;margin-bottom:4px;}
-  .skill-bar{width:100%;background:#ddd;border-radius:8px;overflow:hidden;height:14px;}
-  .skill-bar-inner{height:100%;width:0;background:#0078d4;border-radius:8px;transition:width 1.5s ease-in-out;}
-  footer{text-align:center;margin-top:50px;font-size:0.9em;color:#555;}
-  body.dark footer{color:#aaa;}
+h2{
+  border-bottom:2px solid #0a3d62;padding-bottom:6px;margin-top:40px;
+  text-transform:uppercase;font-size:1.2em;letter-spacing:1px;color:#0a3d62;
+}
+ul{list-style:none;padding-left:0;}
+ul li{
+  background:#f3f9ff;margin-bottom:15px;padding:15px;border-radius:12px;
+  transition:transform 0.3s ease,box-shadow 0.3s ease;
+  color:#333;
+}
+body.dark ul li{background:#2a2a2a;color:#ddd;}
+ul li:hover{transform:translateY(-4px);box-shadow:0 8px 20px rgba(0,0,0,0.1);}
+.project-link{
+  display:inline-block;margin-top:8px;padding:6px 12px;background:#0a3d62;
+  color:#fff;border-radius:8px;font-size:0.9em;transition:background 0.3s;
+}
+.project-link:hover{background:#27ae60;}
+.skill{margin-bottom:12px;}
+.skill-name{font-weight:600;margin-bottom:4px;color:#27ae60;}
+.skill-bar{width:100%;background:#ddd;border-radius:8px;overflow:hidden;height:14px;}
+.skill-bar-inner{height:100%;width:0;background:#0a3d62;border-radius:8px;transition:width 1.5s ease-in-out;}
+footer{text-align:center;margin-top:50px;font-size:0.9em;color:#555;}
+body.dark footer{color:#aaa;}
+
+/* Gráficos circulares */
+.circle{
+  --size:80px;
+  --thickness:10px;
+  width:var(--size);
+  height:var(--size);
+  border-radius:50%;
+  background: conic-gradient(#27ae60 calc(var(--percent)*1%), #ddd 0);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:600;
+  color:#0a3d62;
+  margin:auto;
+}
+.circle-container{
+  display:flex;
+  flex-wrap:wrap;
+  gap:25px;
+  justify-content:flex-start;
+  margin-top:15px;
+}
+.circle-box{text-align:center;width:120px;}
+.circle-box p{margin-top:6px;font-size:0.95em;color:#555;}
+body.dark .circle-box p{color:#bbb;}
+.circle{
+  --size:80px;
+  --thickness:10px;
+  width:var(--size);
+  height:var(--size);
+  border-radius:50%;
+  background: conic-gradient(#ddd 0%, #ddd 0%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:600;
+  color:#0a3d62;
+  margin:auto;
+  transition: background 1.5s ease-in-out;
+}
 </style>
 </head>
 <body>
-  <button class="dark-mode-toggle" id="darkToggle">🌙</button>
+<button class="dark-mode-toggle" id="darkToggle">🌙</button>
 
-  <div class="container" id="cvContent" data-aos="fade-up">
-    <header>
-      <img src="https://avatars.githubusercontent.com/u/9919?v=4" alt="Foto de perfil">
-      <div class="header-info">
-        <h1 id="typed-title"></h1>
-        <p><strong>Licenciado em Engenharia Informática</strong></p>
-        <p>📍 Bragança, Portugal | 📧 <a href="mailto:rivaldo.i.g.j.samuel@gmail.com">rivaldo.i.g.j.samuel@gmail.com</a></p>
-        <div class="social-links">
-          <a href="https://github.com" target="_blank">🐙</a>
-          <a href="https://linkedin.com" target="_blank">💼</a>
-          <a href="mailto:rivaldo.i.g.j.samuel@gmail.com">✉️</a>
-        </div>
+<div class="container" id="cvContent" data-aos="fade-up">
+  <header>
+    <img src="https://avatars.githubusercontent.com/u/9919?v=4" alt="Foto de perfil">
+    <div class="header-info">
+      <h1 id="typed-title"></h1>
+      <p><strong>Licenciado em Engenharia Informática</strong></p>
+      <p>📍 Bragança, Portugal | 📧 <a href="mailto:rivaldo.i.g.j.samuel@gmail.com">rivaldo.i.g.j.samuel@gmail.com</a></p>
+      <div class="social-links">
+        <a href="https://github.com" target="_blank">🐙</a>
+        <a href="https://linkedin.com" target="_blank">💼</a>
+        <a href="mailto:rivaldo.i.g.j.samuel@gmail.com">✉️</a>
       </div>
-    </header>
+    </div>
+  </header>
 
-   <section class="section" data-aos="fade-up" data-aos-delay="100">
-      <h2>Perfil Profissional</h2>
-      <p>
-        Engenheiro Informático recém-formado, motivado e dinâmico, com forte capacidade de proatividade e criatividade
-        na resolução de problemas e desenvolvimento de soluções inovadoras. Apaixonado por tecnologia, adapto-me
-        facilmente a novos desafios e ambientes, mantendo sempre o foco na eficiência e na qualidade do trabalho.
-        Gosto de transformar ideias em resultados concretos, combinando pensamento analítico com uma abordagem prática e
-        colaborativa.
-      </p>
-    </section>
+  <!-- Perfil Profissional -->
+  <section class="section" data-aos="fade-up" data-aos-delay="100">
+    <h2>Perfil Profissional</h2>
+    <p>Engenheiro Informático recém-formado, motivado e dinâmico, com forte capacidade de proatividade e criatividade...</p>
+  </section>
 
-    <section class="section" data-aos="fade-up" data-aos-delay="200">
-      <h2>Experiência Profissional</h2>
-      <p><strong>Tree Flowers Solution, S.A.</strong> – Bragança, Portugal</p>
-      <p class="info">Operador de máquinas | 14/07/2025 – 14/07/2025</p>
-      <p>Operar máquinas de moer e extrair a flor de castanheiro.</p>
-    </section>
+  <!-- Experiência Profissional -->
+  <section class="section" data-aos="fade-up" data-aos-delay="200">
+    <h2>Experiência Profissional</h2>
+    <p><strong>Tree Flowers Solution, S.A.</strong> – Bragança, Portugal</p>
+    <p class="info">Operador de máquinas | 14/07/2025 – 14/07/2025</p>
+    <p>Operar máquinas de moer e extrair a flor de castanheiro.</p>
+  </section>
 
-    <section class="section" data-aos="fade-up" data-aos-delay="300">
-      <h2>Formação Académica</h2>
-      <ul>
-        <li>
-          <strong>Instituto Politécnico de Bragança</strong> – Licenciatura em Engenharia Informática<br>
-          <span class="info">12/09/2022 – 11/07/2025 | Bragança, Portugal | <a href="https://ipb.pt/pt" target="_blank">ipb.pt</a></span>
+  <!-- Formação Académica -->
+  <section class="section" data-aos="fade-up" data-aos-delay="300">
+    <h2>Formação Académica</h2>
+    <ul>
+      <li>
+        <strong>Instituto Politécnico de Bragança</strong> – Licenciatura em Engenharia Informática<br>
+        <span class="info">12/09/2022 – 11/07/2025 | Bragança, Portugal | <a href="https://ipb.pt/pt" target="_blank">ipb.pt</a></span>
+      </li>
+       <li>
+          <strong>Instituto de Línguas Delegação de Nampula </strong> – Inglês nível A1<br>
+          <span class="info">05/03/2019 – 05/06/2019 | Nampula, Moçambique</span>
         </li>
-        <li>
-          <strong>Escola Secundária de Napipine</strong> – Ensino Médio<br>
-          <span class="info">31/01/2019 – 12/12/2020 | Nampula, Moçambique</span>
-        </li>
-      </ul>
-    </section>
+      <li>
+        <strong>Escola Secundária de Napipine</strong> – Ensino Médio<br>
+        <span class="info">31/01/2019 – 12/12/2020 | Nampula, Moçambique</span>
+      </li>
+    </ul>
+  </section>
 
-    <section class="section" data-aos="fade-up" data-aos-delay="400">
-      <h2>Competências</h2>
-      <div class="skill">
-        <div class="skill-name">Python</div>
-        <div class="skill-bar"><div class="skill-bar-inner" data-skill="85%"></div></div>
-      </div>
-      <div class="skill">
-        <div class="skill-name">C / C++</div>
-        <div class="skill-bar"><div class="skill-bar-inner" data-skill="90%"></div></div>
-      </div>
-      <div class="skill">
-        <div class="skill-name">Java / JavaScript</div>
-        <div class="skill-bar"><div class="skill-bar-inner" data-skill="65%"></div></div>
-      </div>
-      <div class="skill">
-        <div class="skill-name">Flutter / Dart</div>
-        <div class="skill-bar"><div class="skill-bar-inner" data-skill="75%"></div></div>
-      </div>
-      <div class="skill">
-        <div class="skill-name">HTML / CSS / Bootstrap</div>
-        <div class="skill-bar"><div class="skill-bar-inner" data-skill="80%"></div></div>
-      </div>
-    </section>
+  <!-- Competências -->
+  <section class="section" data-aos="fade-up" data-aos-delay="400">
+    <h2>Competências</h2>
+    <div class="skill">
+      <div class="skill-name">Python</div>
+      <div class="skill-bar"><div class="skill-bar-inner" data-skill="85%"></div></div>
+    </div>
+    <div class="skill">
+      <div class="skill-name">C / C++</div>
+      <div class="skill-bar"><div class="skill-bar-inner" data-skill="90%"></div></div>
+    </div>
+    <div class="skill">
+      <div class="skill-name">Java / JavaScript</div>
+      <div class="skill-bar"><div class="skill-bar-inner" data-skill="65%"></div></div>
+    </div>
+    <div class="skill">
+      <div class="skill-name">Flutter / Dart</div>
+      <div class="skill-bar"><div class="skill-bar-inner" data-skill="75%"></div></div>
+    </div>
+    <div class="skill">
+      <div class="skill-name">HTML / CSS / Bootstrap</div>
+      <div class="skill-bar"><div class="skill-bar-inner" data-skill="80%"></div></div>
+    </div>
+  </section>
 
-    <section class="section" data-aos="fade-up" data-aos-delay="500">
-      <h2>Projetos</h2>
-      <ul>
-        <li>
-          <strong>Diabe Smart</strong> (20/11/2024 – 08/07/2025)<br>
-          <p>Aplicação móvel desenvolvida em Flutter/Dart para auxiliar pessoas com diabetes na gestão e acompanhamento da condição.</p>
-          <a class="project-link" href="https://gitlab.estig.ipb.pt/a51469/projeto-final_do_curso/-/tree/6c53476dfb044a7d70b70c5e7c8719314211b262/" target="_blank">Ver Projeto</a>
-        </li>
-        <li>
-          <strong>Projeto Rega</strong> (02/05/2025 – 25/06/2025)<br>
-          <p>Sistema IoT para monitorização e gestão de rega automatizada, com sensores e dashboard em Node-RED.</p>
-          <a class="project-link" href="https://gitlab.estig.ipb.pt/a51469/projeto-rega/-/tree/45728ac503955f94b014719c1a5231a6242a7725/" target="_blank">Ver Projeto</a>
-        </li>
-      </ul>
-    </section>
+  <!-- Projetos -->
+  <section class="section" data-aos="fade-up" data-aos-delay="500">
+    <h2>Projetos</h2>
+    <ul>
+      <li>
+        <strong>Diabe Smart</strong> (20/11/2024 – 08/07/2025)<br>
+        <p>Aplicação móvel em Flutter/Dart para auxiliar pessoas com diabetes...</p>
+        <a class="project-link" href="#" target="_blank">Ver Projeto</a>
+      </li>
+      <li>
+        <strong>Projeto Rega</strong> (02/05/2025 – 25/06/2025)<br>
+        <p>Sistema IoT para monitorização e gestão de rega automatizada...</p>
+        <a class="project-link" href="#" target="_blank">Ver Projeto</a>
+      </li>
+    </ul>
+  </section>
 
-    <footer data-aos="fade-up" data-aos-delay="600">
-      © 2025 Rivaldo Ivan — Desenvolvido em Portugal (5300)
-    </footer>
+  <!-- Competências Linguísticas -->
+  <section class="section" data-aos="fade-up" data-aos-delay="600">
+    <h2>Competências Linguísticas</h2>
+    <p><strong>Nível no QEQ:</strong> Nível 6 QRQ</p>
+    <p><strong>Língua(s) materna(s):</strong> Português</p>
+    <p><strong>Outra(s) língua(s):</strong> Inglês</p>
 
-  </div>
+    <div class="circle-container">
+      <div class="circle-box">
+        <div class="circle" style="--percent:80;">B2</div>
+        <p>Compreensão Oral</p>
+      </div>
+      <div class="circle-box">
+        <div class="circle" style="--percent:60;">B1</div>
+        <p>Leitura</p>
+      </div>
+      <div class="circle-box">
+        <div class="circle" style="--percent:80;">B2</div>
+        <p>Escrita</p>
+      </div>
+      <div class="circle-box">
+        <div class="circle" style="--percent:60;">B1</div>
+        <p>Produção Oral</p>
+      </div>
+      <div class="circle-box">
+        <div class="circle" style="--percent:60;">B1</div>
+        <p>Interação Oral</p>
+      </div>
+    </div>
 
-  <!-- Action Buttons -->
-  <div class="action-buttons">
-    <button id="downloadCV">⬇️ Download CV</button>
-    <button class="back-to-top" id="backTop">⬆️</button>
-  </div>
+    <p style="margin-top:10px; font-size:0.9em; color:#555;">
+      <strong>Níveis:</strong> A1 e A2: Utilizador de base; B1 e B2: Utilizador independente; C1 e C2: Utilizador avançado
+    </p>
+  </section>
+
+  <footer data-aos="fade-up" data-aos-delay="700">
+    © 2025 Rivaldo Ivan — Desenvolvido em Portugal
+  </footer>
+</div>
+
+<div class="action-buttons">
+  <button id="downloadCV">⬇️ Download CV</button>
+  <button class="back-to-top" id="backTop">⬆️</button>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script>
-AOS.init({duration:1000,once:true});
+AOS.init({duration:1000, once:true});
 
 // Typed.js
-var typed = new Typed('#typed-title',{
-  strings:['Rivaldo Ivan','Engenheiro Informático'],
+var typed = new Typed('#typed-title', {
+  strings: ['Rivaldo Ivan','Engenheiro Informático'],
   typeSpeed:100,
   backSpeed:50,
   loop:true
 });
 
-// Skill bars
-window.addEventListener('load',()=>{
+// Skills
+window.addEventListener('load', ()=>{
   document.querySelectorAll('.skill-bar-inner').forEach(bar=>{
-    bar.style.width=bar.dataset.skill;
+    bar.style.width = bar.dataset.skill;
   });
-  // Modo escuro persistente
-  if(localStorage.getItem('darkMode')==='true'){
-    document.body.classList.add('dark');
-    document.getElementById('darkToggle').textContent='☀️';
-  }
+
+  // Gráficos circulares
+  const circles = document.querySelectorAll('.circle');
+  circles.forEach(circle => {
+    circle.style.background = 'conic-gradient(#ddd 0%, #ddd 0%)';
+  });
 });
 
-// Dark Mode Toggle
-const toggle=document.getElementById('darkToggle');
-toggle.addEventListener('click',()=>{
+// Animar gráficos ao entrar na tela
+AOS.refreshHard(); // garante que AOS detecta os elementos
+document.addEventListener('aos:in:circle', ({detail}) => {
+  const circle = detail;
+  const percent = parseInt(circle.dataset.percent);
+  circle.style.background = `conic-gradient(#27ae60 ${percent}%, #ddd ${percent}%)`;
+});
+
+// Dark mode toggle
+const toggle = document.getElementById('darkToggle');
+toggle.addEventListener('click', ()=>{
   document.body.classList.toggle('dark');
-  const isDark=document.body.classList.contains('dark');
-  localStorage.setItem('darkMode',isDark);
-  toggle.textContent=isDark?'☀️':'🌙';
-});
-
-// Back to top
-const backBtn=document.getElementById('backTop');
-window.addEventListener('scroll',()=>{
-  backBtn.style.display=(window.scrollY>300)?'inline-block':'none';
-});
-backBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
-
-// Download CV
-document.getElementById('downloadCV').addEventListener('click',()=>{
-  const element=document.getElementById('cvContent');
-  html2pdf().from(element).set({
-    margin:0.5,
-    filename:'Rivaldo_Ivan_CV.pdf',
-    image:{type:'jpeg',quality:0.98},
-    html2canvas:{scale:2},
-    jsPDF:{unit:'in',format:'letter',orientation:'portrait'},
-    pagebreak:{mode:['avoid-all','css','legacy']}
-  }).save();
+  toggle.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
 });
 </script>
 </body>
