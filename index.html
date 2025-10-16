@@ -251,28 +251,29 @@ body.dark .circle-box p{color:#bbb;}
     <p><strong>Língua(s) materna(s):</strong> Português</p>
     <p><strong>Outra(s) língua(s):</strong> Inglês</p>
 
-    <div class="circle-container">
-      <div class="circle-box">
-        <div class="circle" style="--percent:80;">B2</div>
-        <p>Compreensão Oral</p>
-      </div>
-      <div class="circle-box">
-        <div class="circle" style="--percent:60;">B1</div>
-        <p>Leitura</p>
-      </div>
-      <div class="circle-box">
-        <div class="circle" style="--percent:80;">B2</div>
-        <p>Escrita</p>
-      </div>
-      <div class="circle-box">
-        <div class="circle" style="--percent:60;">B1</div>
-        <p>Produção Oral</p>
-      </div>
-      <div class="circle-box">
-        <div class="circle" style="--percent:60;">B1</div>
-        <p>Interação Oral</p>
-      </div>
-    </div>
+   <div class="circle-container">
+  <div class="circle-box">
+    <div class="circle" data-percent="80">B2</div>
+    <p>Compreensão Oral</p>
+  </div>
+  <div class="circle-box">
+    <div class="circle" data-percent="60">B1</div>
+    <p>Leitura</p>
+  </div>
+  <div class="circle-box">
+    <div class="circle" data-percent="80">B2</div>
+    <p>Escrita</p>
+  </div>
+  <div class="circle-box">
+    <div class="circle" data-percent="60">B1</div>
+    <p>Produção Oral</p>
+  </div>
+  <div class="circle-box">
+    <div class="circle" data-percent="60">B1</div>
+    <p>Interação Oral</p>
+  </div>
+</div>
+
 
     <p style="margin-top:10px; font-size:0.9em; color:#555;">
       <strong>Níveis:</strong> A1 e A2: Utilizador de base; B1 e B2: Utilizador independente; C1 e C2: Utilizador avançado
@@ -314,13 +315,21 @@ window.addEventListener('load', ()=>{
   });
 });
 
-// Animar gráficos ao entrar na tela
-AOS.refreshHard(); // garante que AOS detecta os elementos
-document.addEventListener('aos:in:circle', ({detail}) => {
-  const circle = detail;
-  const percent = parseInt(circle.dataset.percent);
-  circle.style.background = `conic-gradient(#27ae60 ${percent}%, #ddd ${percent}%)`;
-});
+// Animar gráficos circulares quando entram na tela
+const circles = document.querySelectorAll('.circle');
+const observer = new IntersectionObserver((entries, obs) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      const circle = entry.target;
+      const percent = circle.dataset.percent;
+      circle.style.background = `conic-gradient(#27ae60 ${percent}%, #ddd ${percent}%)`;
+      obs.unobserve(circle); // só anima uma vez
+    }
+  });
+}, { threshold: 0.5 }); // anima quando metade do círculo estiver visível
+
+circles.forEach(circle => observer.observe(circle));
+
 
 // Dark mode toggle
 const toggle = document.getElementById('darkToggle');
